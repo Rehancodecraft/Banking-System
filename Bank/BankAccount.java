@@ -57,10 +57,20 @@ public class BankAccount {
 		}
 	}
 	public static void creating_accounts(){
+		String bold = "\033[1m";      // Bold Text
+		String red = "\033[31m";      // Red Text
+		String green = "\033[32m";
+		String blue = "\033[34m";
+		String yellow = "\033[33m";   // Yellow Text
+		String reset = "\033[0m";
+		String cyan = "\033[36m";
 		BankAccount account = new BankAccount();
 		account.create_Account();
 		account.account_no = account.AccountNumberGenerator();
-		System.out.println("Your Account has been successfully created, Your Account No is:	" + account.account_no);
+		System.out.println(green + "\n╔════════════════════════════════════╗");
+		System.out.println("║ ✅ Account Created Successfully!    ║");
+		System.out.println("║ 🔹 Your Account No: " + bold + account.account_no + reset + green + "      ║");
+		System.out.println("╚════════════════════════════════════╝" + reset);
 		account.using_services(account);
 		
 	}
@@ -85,20 +95,26 @@ public class BankAccount {
 		System.out.println("                                       ╚═══════════════════════╝" + reset);
 		Scanner input = new Scanner(System.in);
 		BankAccount account = new BankAccount();
-		System.out.println(cyan + "╔════════════════════════════════╗");
-		System.out.print("║ 📝 Enter Your Full Name:  ");
+		System.out.println(cyan + "╔════════════════════════════════════════════╗");
+		System.out.print("║ ✏️  Full Name    : ");
 		account.name = input.nextLine();
-		System.out.println("║--------------------------------║");
 		
-		System.out.print("║ 🔑 Enter Your Password: ");
+		System.out.println("║--------------------------------------------║");
+		
+		System.out.print("║ 🔑  Password     : ");
 		account.password = input.nextLine();
-		System.out.println("║--------------------------------║");
-		System.out.println("║ 🏦 1. Saving Account           ║");
-		System.out.println("║ 💼 2. Current Account          ║");
-		System.out.println("╚════════════════════════════════╝" + reset);
 		
-		System.out.print("➡️ Select Your Account Type: ");
+		System.out.println("║--------------------------------------------║");
+
+// Account Type Selection
+		System.out.println("║ 🏦  Select Account Type:                   ║");
+		System.out.println("║    [1] Saving Account                      ║");
+		System.out.println("║    [2] Current Account                     ║");
+		System.out.println("╚════════════════════════════════════════════╝" + reset);
+		System.out.print("➡️  Select Option: ");
+		
 		account.acct_type = input.nextInt();
+		
 		accounts.add(account);
 		return account;
 	}
