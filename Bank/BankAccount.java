@@ -37,11 +37,11 @@ public class BankAccount {
 		System.out.println("   ******************************║" + bold + "         WELCOME TO BANK          " + reset + yellow + "  ║*********************************");
 		System.out.println("   *                             ╚════════════════════════════════════╝                                *" + reset);
 		Scanner input = new Scanner(System.in);
-		System.out.println(cyan + "   ╔═══════════════════╗");
-		System.out.println("   ║ 1. Login          ║");
-		System.out.println("   ║-------------------║");
-		System.out.println("   ║ 2. Create Account ║");
-		System.out.println("   ╚═══════════════════╝" + reset);
+		System.out.println(cyan + "                                         ╔═══════════════════╗");
+		System.out.println("                                         ║ 1. Login          ║");
+		System.out.println("                                         ║-------------------║");
+		System.out.println("                                         ║ 2. Create Account ║");
+		System.out.println("                                         ╚═══════════════════╝" + reset);
 		
 		System.out.print(green+ "   🟢 Select Option: "+reset);
 		int login_signup = input.nextInt();
@@ -90,28 +90,34 @@ public class BankAccount {
 	
 	
 	public BankAccount create_Account() {
-		System.out.println(yellow + "                                       ╔═══════════════════════╗");
-		System.out.println("                                       ║" + bold + "  CREATE NEW ACCOUNT   " + reset + yellow + "║");
-		System.out.println("                                       ╚═══════════════════════╝" + reset);
+		int width = 60; // Set terminal width manually (adjustable)
+		
 		Scanner input = new Scanner(System.in);
 		BankAccount account = new BankAccount();
-		System.out.println(cyan + "╔════════════════════════════════════════════╗");
-		System.out.print("║ ✏️  Full Name    : ");
+		
+		// Title
+		System.out.println(yellow + centerText("╔═══════════════════════╗", width));
+		System.out.println(centerText("║  CREATE NEW ACCOUNT   ║", width));
+		System.out.println(centerText("╚═══════════════════════╝", width));
+		
+		// User Input Fields
+		System.out.println(cyan + centerText("╔════════════════════════════════════════════╗", width));
+		System.out.print(centerText("║ ✏️  Full Name    : ", width));
 		account.name = input.nextLine();
 		
-		System.out.println("║--------------------------------------------║");
+		System.out.println(centerText("║--------------------------------------------║", width));
 		
-		System.out.print("║ 🔑  Password     : ");
+		System.out.print(centerText("║ 🔑  Password     : ", width));
 		account.password = input.nextLine();
 		
-		System.out.println("║--------------------------------------------║");
-
-// Account Type Selection
-		System.out.println("║ 🏦  Select Account Type:                   ║");
-		System.out.println("║    [1] Saving Account                      ║");
-		System.out.println("║    [2] Current Account                     ║");
-		System.out.println("╚════════════════════════════════════════════╝" + reset);
-		System.out.print("➡️  Select Option: ");
+		System.out.println(centerText("║--------------------------------------------║", width));
+		
+		// Account Type Selection
+		System.out.println(centerText("║ 🏦  Select Account Type:                   ║", width));
+		System.out.println(centerText("║    [1] Saving Account                      ║", width));
+		System.out.println(centerText("║    [2] Current Account                     ║", width));
+		System.out.println(centerText("╚════════════════════════════════════════════╝", width));
+		System.out.print(centerText("➡️  Select Option: ", width));
 		
 		account.acct_type = input.nextInt();
 		
@@ -242,6 +248,10 @@ public class BankAccount {
 			case 'y' -> exit(0);
 		}
 		
+	}
+	public static String centerText(String text, int width) {
+		int padSize = (width - text.length()) / 2;
+		return " ".repeat(Math.max(0, padSize)) + text;
 	}
 }
 	
