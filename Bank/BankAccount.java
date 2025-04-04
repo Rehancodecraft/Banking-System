@@ -16,7 +16,7 @@ public class BankAccount {
 	private int balance;
 	private String password;
 	
-	String bold = "\033[1m";      // Bold Text
+	String bold = "\033[1m";      
 	String red = "\033[31m";      // Red Text
 	String green = "\033[32m";
 	String blue = "\033[34m";
