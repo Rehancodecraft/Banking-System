@@ -1,6 +1,8 @@
 //AUTHOR: REHAN SHAFIQ
 package Bank;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.sql.SQLOutput;
 import java.util.*;
 
@@ -37,13 +39,14 @@ public class BankAccount {
 		System.out.println("   ******************************║" + bold + "         WELCOME TO BANK          " + reset + yellow + "  ║*********************************");
 		System.out.println("   *                             ╚════════════════════════════════════╝                                *" + reset);
 		Scanner input = new Scanner(System.in);
-		System.out.println(cyan + "                                         ╔═══════════════════╗");
-		System.out.println("                                         ║ 1. Login          ║");
-		System.out.println("                                         ║-------------------║");
-		System.out.println("                                         ║ 2. Create Account ║");
-		System.out.println("                                         ╚═══════════════════╝" + reset);
+		System.out.println(yellow + "   *"+cyan+"                                       ╔═══════════════════╗"+reset);
+		System.out.println(yellow + "   *"+cyan+"                                       ║ 1. Login          ║"+reset);
+		System.out.println(yellow + "   *"+cyan+"                                       ║-------------------║"+reset);
+		System.out.println(yellow + "   *"+cyan+"                                       ║ 2. Create Account ║"+reset);
+		System.out.println(yellow + "   *"+cyan+"                                       ╚═══════════════════╝" + reset);
+		System.out.println(yellow+"   *"+reset);
 		
-		System.out.print(green+ "   🟢 Select Option: "+reset);
+		System.out.print(yellow+ "   *"+green+"                                       🟢 Select Option: "+reset);
 		int login_signup = input.nextInt();
 		
 		switch (login_signup) {
@@ -67,10 +70,11 @@ public class BankAccount {
 		BankAccount account = new BankAccount();
 		account.create_Account();
 		account.account_no = account.AccountNumberGenerator();
-		System.out.println(green + "\n╔════════════════════════════════════╗");
-		System.out.println("║ ✅ Account Created Successfully!    ║");
-		System.out.println("║ 🔹 Your Account No: " + bold + account.account_no + reset + green + "      ║");
-		System.out.println("╚════════════════════════════════════╝" + reset);
+		System.out.println(yellow+"   *"+reset);
+		System.out.println(yellow + "   *"+green+"                             ╔════════════════════════════════════╗"+reset);
+		System.out.println(yellow + "   *"+green+"                             ║ ✅ Account Created Successfully!    ║"+reset);
+		System.out.println(yellow + "   *"+green+"                             ║🔹 Your Account No: " + bold + account.account_no + reset+ green+ "       ║"+reset);
+		System.out.println(yellow + "   *"+green+"                             ╚════════════════════════════════════╝" + reset);
 		account.using_services(account);
 		
 	}
@@ -90,34 +94,36 @@ public class BankAccount {
 	
 	
 	public BankAccount create_Account() {
-		int width = 60; // Set terminal width manually (adjustable)
+		// Set terminal width manually (adjustable)
 		
 		Scanner input = new Scanner(System.in);
 		BankAccount account = new BankAccount();
 		
 		// Title
-		System.out.println(yellow + centerText("╔═══════════════════════╗", width));
-		System.out.println(centerText("║  CREATE NEW ACCOUNT   ║", width));
-		System.out.println(centerText("╚═══════════════════════╝", width));
+		System.out.println(yellow + "   *"+reset);
+		System.out.println(yellow + ("   *                                    ╔═══════════════════════╗"));
+		System.out.println(("   *                                    ║  CREATE NEW ACCOUNT   ║"));
+		System.out.println(("   *                                    ╚═══════════════════════╝"));
 		
 		// User Input Fields
-		System.out.println(cyan + centerText("╔════════════════════════════════════════════╗", width));
-		System.out.print(centerText("║ ✏️  Full Name    : ", width));
+		System.out.println(cyan + (yellow+"   *"+cyan+"                         ╔════════════════════════════════════════════╗"+reset));
+		System.out.print((yellow+"   *"+cyan+"                         ║ ✏️  Full Name    : "+reset));
 		account.name = input.nextLine();
 		
-		System.out.println(centerText("║--------------------------------------------║", width));
+		System.out.println((yellow+"   *"+cyan+"                         ║--------------------------------------------║"+reset));
 		
-		System.out.print(centerText("║ 🔑  Password     : ", width));
+		System.out.print((yellow+"   *"+cyan+"                         ║ 🔑  Password     : "));
 		account.password = input.nextLine();
 		
-		System.out.println(centerText("║--------------------------------------------║", width));
+		System.out.println((yellow+"   *"+cyan+"                         ║--------------------------------------------║"+reset));
 		
 		// Account Type Selection
-		System.out.println(centerText("║ 🏦  Select Account Type:                   ║", width));
-		System.out.println(centerText("║    [1] Saving Account                      ║", width));
-		System.out.println(centerText("║    [2] Current Account                     ║", width));
-		System.out.println(centerText("╚════════════════════════════════════════════╝", width));
-		System.out.print(centerText("➡️  Select Option: ", width));
+		System.out.println((yellow+"   *"+cyan+"                         ║ 🏦  Select Account Type:                   ║"+reset));
+		System.out.println((yellow+"   *"+cyan+"                         ║    [1] Saving Account                      ║"+reset));
+		System.out.println((yellow+"   *"+cyan+"                         ║    [2] Current Account                     ║"+reset));
+		System.out.println((yellow+"   *"+cyan+"                         ╚════════════════════════════════════════════╝"+reset));
+		System.out.println(yellow+"   *"+reset);
+		System.out.print((yellow+"   *"+cyan+"                                   ➡️  Select Option: "));
 		
 		account.acct_type = input.nextInt();
 		
@@ -135,9 +141,10 @@ public class BankAccount {
 		String yellow = "\033[33m";   // Yellow Text
 		String reset = "\033[0m";
 		String cyan = "\033[36m";
-		System.out.println(yellow + "                                              ╔═══════════╗");
-		System.out.println("                                              ║" + bold + "   LOGIN   " + reset + yellow + "║");
-		System.out.println("                                              ╚═══════════╝" + reset);
+		System.out.println(yellow + "   *"+reset);
+		System.out.println(yellow + "   *                                              ╔═══════════╗");
+		System.out.println("   *                                              ║" + bold + "   LOGIN   " + reset + yellow + "║");
+		System.out.println("   *                                              ╚═══════════╝" + reset);
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter your Full Name: ");
 		String entered_name = input.nextLine();
@@ -218,7 +225,7 @@ public class BankAccount {
 		balance += ammount;
 		System.out.println("Your ammount has been deposited, Thank you!");
 	}
-	
+//	public void withdraw1
 	//METHOD TO WITHDRAW AMOUNT
 	
 	public void withdraw(int ammount) {
