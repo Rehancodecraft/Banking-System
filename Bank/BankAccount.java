@@ -71,10 +71,10 @@ public class BankAccount {
 		account.create_Account();
 		account.account_no = account.AccountNumberGenerator();
 		System.out.println(yellow+"   *"+reset);
-		System.out.println(yellow + "   *"+green+"                             ╔════════════════════════════════════╗"+reset);
-		System.out.println(yellow + "   *"+green+"                             ║ ✅ Account Created Successfully!    ║"+reset);
-		System.out.println(yellow + "   *"+green+"                             ║🔹 Your Account No: " + bold + account.account_no + reset+ green+ "       ║"+reset);
-		System.out.println(yellow + "   *"+green+"                             ╚════════════════════════════════════╝" + reset);
+		System.out.println(yellow + "   *"+green+"                             ╔════════════════════════════════════════════╗"+reset);
+		System.out.println(yellow + "   *"+green+"                             ║ ✅ Account Created Successfully!            ║"+reset);
+		System.out.println(yellow + "   *"+green+"                             ║🔹 Your Account No: " + bold + account.account_no + reset+ green+ "               ║"+reset);
+		System.out.println(yellow + "   *"+green+"                             ╚════════════════════════════════════════════╝" + reset);
 		account.using_services(account);
 		
 	}
@@ -123,7 +123,7 @@ public class BankAccount {
 		System.out.println((yellow+"   *"+cyan+"                         ║    [2] Current Account                     ║"+reset));
 		System.out.println((yellow+"   *"+cyan+"                         ╚════════════════════════════════════════════╝"+reset));
 		System.out.println(yellow+"   *"+reset);
-		System.out.print((yellow+"   *"+cyan+"                                   ➡️  Select Option: "));
+		System.out.print((yellow+"   *"+cyan+"                                       ➡️  Select Option: "));
 		
 		account.acct_type = input.nextInt();
 		
@@ -205,8 +205,23 @@ public class BankAccount {
 	//METHOD TO ASK ACTION FROM USER
 	
 	public int asking_action() {
-		System.out.println("1.Deposite\n2.Withdraw\n3.Checkbalance\n4.Create Another Account \n5.Login Another Account\n5.Exit");
-		System.out.print("Enter Action: ");
+		System.out.println(yellow+"   *"+cyan+"                           ╔══════════════════════════════════════╗"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║            🏦 ACCOUNT MENU           ║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ╠══════════════════════════════════════╣"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [1] 💰 Deposit                      ║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [2] 💸 Withdraw                     ║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [3] 📊 Check Balance                ║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [4] "+green+"➕"+reset+cyan+" Create Another Account        ║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [5] 🔄 Login to Another Account     ║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [6] "+red+"❌"+reset+cyan+" Exit                          ║"+ reset);
+		System.out.println(yellow+"   *"+cyan+"                           ╚══════════════════════════════════════╝" + reset);
+		System.out.print(yellow+"   *"+reset+cyan+"                                       ➡️  Enter Action: ");
+		
 		int action = input.nextInt();
 		return action;
 	}
