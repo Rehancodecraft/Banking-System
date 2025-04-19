@@ -4,6 +4,8 @@ package Bank;
 import org.w3c.dom.ls.LSOutput;
 
 import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static java.lang.System.exit;
@@ -32,12 +34,19 @@ public class BankAccount {
 		String red = "\033[31m";      // Red Text
 		String green = "\033[32m";
 		String blue = "\033[34m";
-		String yellow = "\033[33m";   // Yellow Text
+		String yellow = "\u001B[93m";   // Yellow Text
 		String reset = "\033[0m";
 		String cyan = "\033[36m";
-		System.out.println(yellow + "   *                             ╔════════════════════════════════════╗                                *");
-		System.out.println("   ******************************║" + bold + "         WELCOME TO BANK          " + reset + yellow + "  ║*********************************");
-		System.out.println("   *                             ╚════════════════════════════════════╝                                *" + reset);
+		String banner = """
+                 __      __         .__                                     ___________         __________                  __
+                /  \\    /  \\  ____  |  |    ____    ____    _____    ____   \\__    ___/  ____   \\______   \\_____     ____  |  | __
+                \\   \\/\\/   /_/ __ \\ |  |  _/ ___\\  /  _ \\  /     \\ _/ __ \\    |    |    /  _ \\   |    |  _/\\__  \\   /    \\ |  |/ /
+                 \\        / \\  ___/ |  |__\\  \\___ (  <_> )|  Y Y  \\\\  ___/    |    |   (  <_> )  |    |   \\ / __ \\_|   |  \\|    <
+                  \\__/\\  /   \\___  >|____/ \\___  > \\____/ |__|_|  / \\___  >   |____|    \\____/   |______  /(____  /|___|  /|__|_ \\
+                       \\/        \\/            \\/               \\/      \\/                              \\/      \\/      \\/      \\/
+                """;
+		System.out.println(yellow+banner+reset);
+		System.out.println(yellow+"   ***************************************************************************************************************"+reset);
 		Scanner input = new Scanner(System.in);
 		System.out.println(yellow + "   *"+cyan+"                                       ╔═══════════════════╗"+reset);
 		System.out.println(yellow + "   *"+cyan+"                                       ║ 1. Login          ║"+reset);
@@ -51,7 +60,17 @@ public class BankAccount {
 		
 		switch (login_signup) {
 			case 1:
-				login();
+				BankAccount newAccount = login_account();
+				if (newAccount != null) {
+					newAccount.using_services(newAccount);
+					return;
+				}
+				else{
+					System.out.println(yellow + "   *"+red + "                         ╔════════════════════════════════════════════╗");
+					System.out.println(yellow + "   *"+red+"                         ║          ❌  Your Account  Not Found        ║");
+					System.out.println(yellow + "   *"+red+"                         ╚════════════════════════════════════════════╝" + reset);
+					run_machine();
+				}
 				break;
 			
 			case 2:
@@ -71,24 +90,38 @@ public class BankAccount {
 		account.create_Account();
 		account.account_no = account.AccountNumberGenerator();
 		System.out.println(yellow+"   *"+reset);
-		System.out.println(yellow + "   *"+green+"                             ╔════════════════════════════════════════════╗"+reset);
-		System.out.println(yellow + "   *"+green+"                             ║ ✅ Account Created Successfully!            ║"+reset);
-		System.out.println(yellow + "   *"+green+"                             ║🔹 Your Account No: " + bold + account.account_no + reset+ green+ "               ║"+reset);
-		System.out.println(yellow + "   *"+green+"                             ╚════════════════════════════════════════════╝" + reset);
+		System.out.println(yellow + "   *"+green+"                         ╔════════════════════════════════════════════╗"+reset);
+		System.out.println(yellow + "   *"+green+"                         ║ ✅ Account Created Successfully!            ║"+reset);
+		System.out.println(yellow + "   *"+green+"                         ║🔹 Your Account No: " + bold + account.account_no + reset+ green+ "               ║"+reset);
+		System.out.println(yellow + "   *"+green+"                         ╚════════════════════════════════════════════╝" + reset);
 		account.using_services(account);
 		
 	}
-	public static void login(){
-		BankAccount account = login_account();
-		if (account != null){
-			System.out.println("Your account Logged in Succefully");
-			account.using_services(account);
-		}
-		else{
-			System.out.println("Your account is Not Found");
-			run_machine();
-		}
-	}
+//	public static BankAccount login(){
+//		String bold = "\033[1m";      // Bold Text
+//		String red = "\033[31m";      // Red Text
+//		String green = "\033[32m";
+//		String blue = "\033[34m";
+//		String yellow = "\033[33m";   // Yellow Text
+//		String reset = "\033[0m";
+//		String cyan = "\033[36m";
+//		BankAccount account = login_account();
+//		if (account != null) {
+//			System.out.println( yellow + "   *"+green+ "                         ╔════════════════════════════════════════════╗");
+//			System.out.println(yellow + "   *"+green+"                         ║   ✅  Your Account Logged In Successfully   ║");
+//			System.out.println(yellow + "   *"+green+"                         ╚════════════════════════════════════════════╝" + reset);
+//			return account;
+//		} else {
+//			System.out.println(yellow + "   *"+red + "                         ╔════════════════════════════════════════════╗");
+//			System.out.println(yellow + "   *"+red+"                         ║❌  Your Account  Not Found, Returning To Main Menu   ║");
+//			System.out.println(yellow + "   *"+red+"                         ╚════════════════════════════════════════════╝" + reset);
+//
+//			run_machine();
+//			return null;
+//
+//		}
+//
+//	}
 	
 	
 	
@@ -142,22 +175,37 @@ public class BankAccount {
 		String reset = "\033[0m";
 		String cyan = "\033[36m";
 		System.out.println(yellow + "   *"+reset);
-		System.out.println(yellow + "   *                                              ╔═══════════╗");
-		System.out.println("   *                                              ║" + bold + "   LOGIN   " + reset + yellow + "║");
-		System.out.println("   *                                              ╚═══════════╝" + reset);
+		System.out.println(yellow + "   *                                          ╔═══════════╗");
+		System.out.println("   *                                          ║" + bold + "   LOGIN   " + reset + yellow + "║");
+		System.out.println("   *                                          ╚═══════════╝" + reset);
 		Scanner input = new Scanner(System.in);
-		System.out.print("Enter your Full Name: ");
+		System.out.println(cyan + (yellow+"   *"+cyan+"                         ╔════════════════════════════════════════════╗"+reset));
+		System.out.print((yellow+"   *"+cyan+"                         ║ ✏️  Full Name    : "+reset));
 		String entered_name = input.nextLine();
-		System.out.print("Enter your Password: ");
+		System.out.println((yellow+"   *"+cyan+"                         ║--------------------------------------------║"+reset));
+		
+		System.out.print((yellow+"   *"+cyan+"                         ║ 🔑  Password     : "));
 		String entered_password = input.nextLine();
+		System.out.println((yellow+"   *"+cyan+"                         ╚════════════════════════════════════════════╝"+reset));
+		
 		
 		for (BankAccount account : accounts) {
 			if (account.name.equals(entered_name) && account.password.equals(entered_password)) {
+				System.out.println( yellow + "   *"+green+ "                         ╔════════════════════════════════════════════╗");
+				System.out.println(yellow + "   *"+green+"                         ║   ✅  Your Account Logged In Successfully   ║");
+				System.out.println(yellow + "   *"+green+"                         ╚════════════════════════════════════════════╝" + reset);
 				return account;
+			}
+			else{
+				System.out.println(yellow + "   *"+red + "                         ╔════════════════════════════════════════════╗");
+				System.out.println(yellow + "   *"+red+"                         ║❌  Login Failed, Try Agian..loginaccount║");
+				System.out.println(yellow + "   *"+red+"                         ╚════════════════════════════════════════════╝" + reset);
+				login_account();
+				return null;
 			}
 			
 		}
-		System.out.println("Invalid Password");
+//		System.out.println("Invalid Password");
 		return null;
 	}
 	
@@ -194,7 +242,16 @@ public class BankAccount {
 					break;
 				
 				case 5:
-					login();
+					BankAccount account1 = login_account();
+					if (account1 != null) {
+						account1.using_services(account1);
+					}
+					else {
+						System.out.println(yellow + "   *"+red + "                         ╔════════════════════════════════════════════╗");
+						System.out.println(yellow + "   *"+red+"                         ║❌  Login Failed, Try Again, using services                 ║");
+						System.out.println(yellow + "   *"+red+"                         ╚════════════════════════════════════════════╝" + reset);
+						login_account();
+					}
 					break;
 					
 				default:
@@ -237,8 +294,30 @@ public class BankAccount {
 	//METHOD TO DEPOSIT AMOUNT
 	
 	public void diposite(int ammount) {
+		String bold = "\033[1m";      // Bold Text
+		String red = "\033[31m";      // Red Text
+		String green = "\033[32m";
+		String blue = "\033[34m";
+		String yellow = "\033[33m";   // Yellow Text
+		String reset = "\033[0m";
+		String cyan = "\033[36m";
+		
+		BankAccount account = create_Account();
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDateTime = now.format(formatter);
 		balance += ammount;
-		System.out.println("Your ammount has been deposited, Thank you!");
+		System.out.println(cyan + "\n*********************************************");
+		System.out.println("*           " + yellow + bold + "Deposit Receipt" + reset + cyan + "            *");
+		System.out.println("*********************************************");
+		System.out.println("* " + green + "Account Holder  : " + reset + this.name + "     *");
+		System.out.println("* " + green + "Account Number  : " + reset + account.account_no + "     *");
+		System.out.println("* " + green + "Amount Deposited: Rs. " + reset + ammount + "     *");
+		System.out.println("* " + green + "Date & Time     : " + reset + formattedDateTime + "   *");
+		System.out.println("*********************************************");
+		System.out.println("* " + cyan + "Your amount has been successfully deposited!" + reset + " *");
+		System.out.println("* " + yellow + bold + "Thank You for Banking with Us!" + reset + " *");
+		System.out.println("*********************************************\n");
 	}
 //	public void withdraw1
 	//METHOD TO WITHDRAW AMOUNT
@@ -276,6 +355,7 @@ public class BankAccount {
 		return " ".repeat(Math.max(0, padSize)) + text;
 	}
 }
+
 	
 
 	
