@@ -41,19 +41,51 @@ This Banking System is a Java-based console application that simulates basic ban
    ```
 
 ## Usage
-1. Launch the application using the command above.
-2. Choose from the main menu options:
-   - **Login**: Enter credentials to access an existing account.
-   - **Create Account**: Provide details to create a new account.
-   - **Exit**: Close the application.
-3. After logging in, select from transaction options:
-   - Deposit funds.
-   - Withdraw funds.
-   - View transaction receipts.
-   - Create additional accounts.
-4. Follow the prompts to complete your actions.
+1. **Launching the Application**:
+   Upon launching the application, the user is presented with two options:
+    - **Login**: Enter credentials (full name and password) to access an existing account. If the account does not exist, an error message is displayed.
+    - **Create Account**: Proceed to create a new account by providing required details.
+
+       ![Account Not Found](Images/AccountNotFound.png)
+
+2. **Creating a New Account**:
+   After selecting the "Create Account" option, the user is prompted to:
+    - **Enter Full Name**: Provide their full name for the account.
+    - **Enter Password**: Set a password for account security.
+    - **Select Account Type**: Choose between a savings account or a current account.
+    - **Account Created Successfully**: Upon successful creation, a confirmation message is displayed with the generated account number.
+
+       ![Create Account](Images/CreateAccount.png)
+
+3. **Banking Services**:
+   After account creation or login, the user can access the following services:
+    - **Deposit Funds**:
+      Select option 1 to deposit money. Enter the amount, and a deposit receipt is generated.
+
+      ![Deposit](Images/Deposit.png)
+    - **Withdraw Funds**:
+      Select option 2 to withdraw money. If the withdrawal amount exceeds the deposited balance or no funds have been deposited, an error is displayed. Otherwise, the amount is withdrawn, and a receipt is generated.
+
+      ![Withdraw Error](Images/WithdrawError.png)
+
+      ![Withdraw](Images/Withdraw.png)
+    - **Check Balance**:
+      Select option 3 to view account details, including the remaining balance and other account information.
+
+      ![Display](Images/Display.png)
+    - **Create New Account**:
+      Select option 4 to create an additional account under the same user, following the same account creation process.
+    - **Login to Another Account**:
+      Select option 5, enter the full name and password of another account, and log in successfully if credentials are valid.
+
+      ![Login](Images/Login.png)
+4. **Exit the Application**:
+   Select option 6 to exit the banking system.
+      
+      ![Display](Images/Exit.png)
 
 ## Project Structure
+
 - `Main.java`: Entry point of the application, contains the main menu and user interaction logic.
 - `BankAccount.java`: Class to manage account details and transactions.
 

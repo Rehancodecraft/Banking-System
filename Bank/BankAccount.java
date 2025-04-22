@@ -67,7 +67,7 @@ public class BankAccount {
 				}
 				else{
 					System.out.println(yellow + "   *"+red + "                         ╔════════════════════════════════════════════╗"+yellow+"                                      *"+reset);
-					System.out.println(yellow + "   *"+red+"                         ║          ❌  Your Account Not Found         ║"+yellow+"                                      *"+reset);
+					System.out.println(yellow + "   *"+red+"                         ║          ❌  Your Account Not Found        ║"+yellow+"                                      *"+reset);
 					System.out.println(yellow + "   *"+red+"                         ╚════════════════════════════════════════════╝" + reset+yellow+"                                      *"+reset);
 					run_machine();
 				}
@@ -116,7 +116,7 @@ public class BankAccount {
 		
 		System.out.println(yellow+"   *"+reset+yellow+"                                                                                                             *"+reset);
 		System.out.println(yellow + "   *"+green+"                         ╔════════════════════════════════════════════╗"+reset+yellow+"                                      *"+reset);
-		System.out.println(yellow + "   *"+green+"                         ║ ✅ Account Created Successfully!            ║"+reset+yellow+"                                      *"+reset);
+		System.out.println(yellow + "   *"+green+"                         ║✅ Account Created Successfully!            ║"+reset+yellow+"                                      *"+reset);
 		System.out.println(yellow + "   *"+green+"                         ║🔹 Your Account No: " + bold + account.account_no + reset+ green+ "               ║"+reset+yellow+"                                      *"+reset);
 		System.out.println(yellow + "   *"+green+"                         ╚════════════════════════════════════════════╝" + reset+yellow+"                                      *"+reset);
 		
@@ -150,7 +150,7 @@ public class BankAccount {
 		for (BankAccount account : accounts) {
 			if (account.name.equals(entered_name) && account.password.equals(entered_password)) {
 				System.out.println( yellow + "   *"+green+ "                         ╔════════════════════════════════════════════╗"+yellow+"                                      *"+reset);
-				System.out.println(yellow + "   *"+green+"                         ║   ✅  Your Account Logged In Successfully   ║"+yellow+"                                      *"+reset);
+				System.out.println(yellow + "   *"+green+"                         ║   ✅  Your Account Logged In Successfully  ║"+yellow+"                                      *"+reset);
 				System.out.println(yellow + "   *"+green+"                         ╚════════════════════════════════════════════╝" + reset+yellow+"                                      *"+reset);
 				return account;
 			}
@@ -208,6 +208,7 @@ public class BankAccount {
 					System.out.println(yellow + "   *"+red+"                         ╚════════════════════════════════════════════╝" + reset+yellow+"                                      *"+reset);
 					
 					action = asking_action();
+					continue;
 			}
 		}
 		exiting();
@@ -225,11 +226,11 @@ public class BankAccount {
 		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset+yellow+"                                          *"+reset);
 		System.out.println(yellow+"   *"+cyan+"                           ║  [3] 📊 Check Balance                ║"+ reset+yellow+"                                          *"+reset);
 		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset+yellow+"                                          *"+reset);
-		System.out.println(yellow+"   *"+cyan+"                           ║  [4] "+green+"➕"+reset+cyan+" Create Another Account        ║"+ reset+yellow+"                                          *"+reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [4] "+green+"➕"+reset+cyan+" Create Another Account       ║"+ reset+yellow+"                                          *"+reset);
 		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset+yellow+"                                          *"+reset);
 		System.out.println(yellow+"   *"+cyan+"                           ║  [5] 🔄 Login to Another Account     ║"+ reset+yellow+"                                          *"+reset);
 		System.out.println(yellow+"   *"+cyan+"                           ║--------------------------------------║"+ reset+yellow+"                                          *"+reset);
-		System.out.println(yellow+"   *"+cyan+"                           ║  [6] "+red+"❌"+reset+cyan+" Exit                          ║"+ reset+yellow+"                                          *"+reset);
+		System.out.println(yellow+"   *"+cyan+"                           ║  [6] "+red+"❌"+reset+cyan+" Exit                         ║"+ reset+yellow+"                                          *"+reset);
 		System.out.println(yellow+"   *"+cyan+"                           ╚══════════════════════════════════════╝" + reset+yellow+"                                          *"+reset);
 		System.out.print(reset+cyan+"                                           ➡️  Enter Action: "+reset);
 		
@@ -345,7 +346,7 @@ public static void deposit_receipt(BankAccount account,int amount) {
 		System.out.println(yellow + "   *" + green + "                          Date & Time     : " +"          "+ reset + formattedDate + yellow + "                 *" + reset);
 		System.out.println(yellow + "   *" + green + "                         " + divider + reset + yellow + "                                  *" + reset);
 		System.out.println(yellow + "   *" + green + "                          Your amount has been successfully Withdrawn!" + reset + yellow + "                                       *" + reset);
-		System.out.println(yellow + "   *" + green + "                          " + bold + "Thank You for Banking with Us!" + reset + yellow + "                                                     *" + reset);
+		System.out.println(yellow + "   *" + green + "                          " + bold + "          Thank You for Banking with Us!" + reset + yellow + "                                           *" + reset);
 		System.out.println(yellow + "   *" + reset + green + "                         " + divider + reset + yellow + "                                  *" + reset);
 		System.out.println(yellow + "   *                                                                                                             *" + reset);
 		
