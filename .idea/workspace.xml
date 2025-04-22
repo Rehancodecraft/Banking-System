@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d1f493d-4c85-482d-80f8-4dddaa47a65c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="3d1f493d-4c85-482d-80f8-4dddaa47a65c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +72,7 @@
       <workItem from="1744778918781" duration="897000" />
       <workItem from="1745038969787" duration="55514000" />
       <workItem from="1745318061971" duration="97000" />
-      <workItem from="1745318239626" duration="3073000" />
+      <workItem from="1745318239626" duration="3916000" />
     </task>
     <servers />
   </component>
