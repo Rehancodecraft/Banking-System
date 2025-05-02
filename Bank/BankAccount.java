@@ -1,6 +1,8 @@
 // AUTHOR: REHAN SHAFIQ
 package Bank;
 
+
+
 import java.sql.*;
 import java.util.*;
 
@@ -141,7 +143,6 @@ public class BankAccount {
             Utility.UserInterface.bankServicesDisplay();
             servicesOption = Utility.GetInputWithStyles.getBankServicesInput();
           }else {
-            Utility.UserInterface.accountLoginFailedDisplay();
             handleAccountServices(account);
           }
           break;
@@ -152,6 +153,9 @@ public class BankAccount {
           if (loggedAccount != null) {
             Utility.UserInterface.accountLoggedInSuccessfullyDisplay();
             account.handleAccountServices(loggedAccount);
+          }
+          else {
+            Utility.UserInterface.accountLoginFailedDisplay();
           }
           break;
           
