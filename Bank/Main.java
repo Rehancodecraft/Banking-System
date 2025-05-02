@@ -2,8 +2,9 @@ package Bank;
 public class Main{
 	public static void main(String[] args){
 		//creating object of class BankAccount
-		BankAccount acct1 = new BankAccount();
-		acct1.askForLoginAndSignup();
+		Database.connectToDatabase();
+		BankAccount Bank1 = new BankAccount();
+		Bank1.askForLoginAndSignup();
 		
 
 	}
