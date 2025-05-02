@@ -26,7 +26,7 @@ public class Database {
 		}
 	}
 	private static void initializeDatabase() {
-		try () {
+		try {
 			String createTableSQL = "CREATE TABLE IF NOT EXISTS Accounts (" +
 					"Account_No VARCHAR(20) PRIMARY KEY, " +
 					"AccountHolder_Name VARCHAR(50), " +
