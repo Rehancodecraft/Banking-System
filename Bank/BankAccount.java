@@ -156,6 +156,7 @@ public class BankAccount {
           }
           else {
             Utility.UserInterface.accountLoginFailedDisplay();
+            account.handleAccountServices(account);
           }
           break;
           
