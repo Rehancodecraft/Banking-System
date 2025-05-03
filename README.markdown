@@ -3,6 +3,8 @@
 ## Overview
 This Banking System is a Java-based console application that simulates core banking operations. It allows users to create accounts, log in, perform transactions such as deposits, withdrawals, and money transfers to other users, and generate transaction receipts. The system now uses SQLite for persistent data storage, replacing the previous in-memory ArrayList implementation, ensuring data persists across sessions. The codebase has been optimized for better formatting and efficiency, with streamlined scripts for easy execution on Linux and Windows. This project is ideal for learning database integration, object-oriented programming, and user input handling in Java.
 
+For a detailed walkthrough of how I built this project, including insights into OOP, SQLite integration, and console UI design, check out my article on Hashnode: [Crafting a Java Banking System: Lessons in OOP, SQLite, and Console UI Design](https://rehanshafiq.hashnode.dev/crafting-a-java-banking-system-lessons-in-oop-sqlite-and-console-ui-design).
+
 ## Features
 - **User Authentication**:
   - Login for existing users with account credentials (full name and password).
