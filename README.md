@@ -106,20 +106,20 @@ This Banking System is a Java-based console application that simulates core bank
      ![Withdraw Error](Images/WithdrawError.png)
 
      ![Withdraw](Images/Withdraw.png)
-   - **Send Money**:
-     Select option 3 to transfer money to another user’s account. Enter the recipient’s account details and amount. If the balance is sufficient and the recipient exists, the transfer is completed, and a receipt is generated.
    - **Check Balance**:
-     Select option 4 to view account details, including the remaining balance and other account information.
+       Select option 3 to view account details, including the remaining balance and other account information.
 
-     ![Display](Images/Display.png)
-   - **Create New Account**:
-     Select option 5 to create an additional account under the same user, following the same account creation process.
+   ![Display](Images/Display.png)
+   - **Send Money**:
+     Select option 4 to transfer money to another user’s account. Enter the recipient’s account details and amount. If the balance is sufficient and the recipient exists, the transfer is completed, and a receipt is generated.
+   ![Display](Images/sendMoney.png)
+   
    - **Login to Another Account**:
-     Select option 6, enter the full name and password of another account, and log in successfully if credentials are valid.
+     Select option 5, enter the full name and password of another account, and log in successfully if credentials are valid.
 
-     ![Login](Images/Login.png)
+     ![Login](Images/loginToAnother.png)
 4. **Exit the Application**:
-   Select option 7 to exit the banking system.
+   Select option 6 to exit the banking system.
 
    ![Display](Images/Exit.png)
 

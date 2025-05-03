@@ -142,6 +142,7 @@ public class BankAccount {
             exitFromBank(); // Optional: display message or pause
             Utility.UserInterface.bankServicesDisplay();
             servicesOption = Utility.GetInputWithStyles.getBankServicesInput();
+            break;
           }else {
             handleAccountServices(account);
           }
