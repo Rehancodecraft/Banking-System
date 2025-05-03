@@ -358,7 +358,7 @@ public class Utility {
       
         process = input.next().charAt(0);
         input.nextLine();
-      } while (process != 'y' && process != 'n');
+      } while ((process != 'y' || process != 'Y') && (process != 'n' || process != 'N');
       
       System.out.print(reset);
       return process;
