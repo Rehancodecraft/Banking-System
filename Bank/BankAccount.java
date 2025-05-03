@@ -185,7 +185,7 @@ public class BankAccount {
   public void withdraw(BankAccount account) {
     Utility.UserInterface.withdrawAmountDisplay();
     int withdrawAmount = Utility.GetInputWithStyles.getWithdrawAmountInput();
-    if (withdrawAmount > account.balance) {
+    if (withdrawAmount > Database.checkBalanceOfAccountFromDatabase(account.name,account.account_no)) {
       Utility.UserInterface.invalidWithdrawAmountDisplay();
     } else {
       Database.withdrawFromDatabase(withdrawAmount,account.account_no,account.name);
@@ -196,22 +196,27 @@ public class BankAccount {
     Utility.UserInterface.sendMoneyDisplay();
     String accountNo = Utility.GetInputWithStyles.getAccountNoInputForSendMoney();
     int sendAmount = Utility.GetInputWithStyles.getAmountInputForSendMoney();
-    String receiverName = Database.getNameOfReceiverFromDatabase(accountNo);
-      if(receiverName != null) {
+    if(sendAmount < Database.checkBalanceOfAccountFromDatabase(account.name,account.account_no)) {
+      String receiverName = Database.getNameOfReceiverFromDatabase(accountNo);
+      if (receiverName != null) {
         Utility.UserInterface.sendMoneyReceiptDisplay(receiverName, accountNo, sendAmount);
         char sendMoneyProcess = Utility.GetInputWithStyles.getInputForProcessSendMoney();
         if (sendMoneyProcess == 'Y' || sendMoneyProcess == 'y') {
-          Database.sendMoneyToDatabaseToOtherAccount(sendAmount, accountNo,receiverName, account.account_no, account.name);
+          Database.sendMoneyToDatabaseToOtherAccount(sendAmount, accountNo, receiverName, account.account_no, account.name);
           Utility.UserInterface.sentMoneySuccessfullyDisplay();
           return true;
-      }else {
+        } else {
           return false;
         }
-    }else {
+      } else {
         Utility.UserInterface.accountNotFoundDisplay();
-        return false;
+        
       }
-      
+    }else{
+      Utility.UserInterface.invalidWithdrawAmountDisplay();
+      return false;
+    }
+    return false;
   }
   public static void exitFromBank() {
     Utility.UserInterface.exitBank();
