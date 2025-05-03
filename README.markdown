@@ -57,7 +57,7 @@ For a detailed walkthrough of how I built this project, including insights into 
 
 #### For Windows Users
 3. **Run the Application**:
-   - **Option 1**: Double-click `run.bat` in File Explorer.
+   - **Option 1**: Double-click `run.bat` or `bat` in File Explorer.
    - **Option 2**: Open a Command Prompt in the project directory and run:
      ```cmd
      run.bat
