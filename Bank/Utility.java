@@ -1,9 +1,15 @@
 package Bank;
 
-import javax.swing.*;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import javax.swing.*;
 
 public class Utility {
 
@@ -21,17 +27,18 @@ public class Utility {
     //		Scanner input = new Scanner(System.in);
 
     public static char getInputForExiting() {
-      
+
       char exit;
 
       while (true) {
-        System.out.print(red + "                                              Do You want to exit? (y/n): ");
+        System.out.print(
+            red + "                                              Do You want to exit? (y/n): ");
         System.out.print(reset);
         exit = input.next().charAt(0);
         input.nextLine();
         if (exit == 'y' || exit == 'Y' || exit == 'n' || exit == 'N') {
           return exit;
-        }else {
+        } else {
           Utility.UserInterface.enterValidActionDisplay();
         }
       }
@@ -40,24 +47,23 @@ public class Utility {
     public static int getInputForStartUpScreen() {
       while (true) {
         System.out.print(
-                yellow
-                        + "   *"
-                        + reset
-                        + green
-                        + "                                             🟢 Select Option: "
-                        + reset);
+            yellow
+                + "   *"
+                + reset
+                + green
+                + "                                             🟢 Select Option: "
+                + reset);
         String userInput = input.nextLine().trim();
         if (userInput.matches("\\d+")) {
           int action = Integer.parseInt(userInput);
-          if (action >=1 && action <= 2) {
+          if (action >= 1 && action <= 2) {
             return action;
-          }else{
+          } else {
             Utility.UserInterface.enterValidActionDisplay();
           }
-        }else {
+        } else {
           Utility.UserInterface.enterValidActionDisplay();
         }
-        
       }
     }
 
@@ -74,9 +80,10 @@ public class Utility {
                   + "                                *"
                   + reset));
 
-      System.out.print((yellow + "   *" + cyan + "                               ║ ✏️  Full Name    : "));
+      System.out.print(
+          (yellow + "   *" + cyan + "                               ║ ✏️  Full Name    : "));
 
-//      input.nextLine();
+      //      input.nextLine();
       return input.nextLine();
     }
 
@@ -91,7 +98,8 @@ public class Utility {
               + yellow
               + "                                *"
               + reset));
-      System.out.print((yellow + "   *" + cyan + "                               ║ 🔑  Password     : "));
+      System.out.print(
+          (yellow + "   *" + cyan + "                               ║ 🔑  Password     : "));
       return input.nextLine();
     }
 
@@ -150,7 +158,7 @@ public class Utility {
               + "                                                                                  "
               + "                           *"
               + reset);
-      while(true) {
+      while (true) {
         System.out.print(
             (yellow
                 + "   *"
@@ -162,10 +170,10 @@ public class Utility {
           accountType = Integer.parseInt(userInput);
           if (accountType >= 1 && accountType <= 2) {
             return accountType;
-          }else{
+          } else {
             Utility.UserInterface.enterValidActionDisplay();
           }
-        }else{
+        } else {
           Utility.UserInterface.enterValidActionDisplay();
         }
       }
@@ -184,9 +192,13 @@ public class Utility {
                   + "                               *"
                   + reset));
       System.out.print(
-          (yellow + "   *" + cyan + "                                ║ ✏️  Full Name    : " + reset));
+          (yellow
+              + "   *"
+              + cyan
+              + "                                ║ ✏️  Full Name    : "
+              + reset));
 
-//      input.nextLine();
+      //      input.nextLine();
       return input.nextLine();
     }
 
@@ -222,162 +234,167 @@ public class Utility {
 
       return password;
     }
-    
+
     public static int getBankServicesInput() {
-      
+
       while (true) {
         System.out.print(
-                reset + cyan + "                                                 ➡️  Enter Action: " + reset);
-        
+            reset
+                + cyan
+                + "                                                 ➡️  Enter Action: "
+                + reset);
+
         String userInput = input.nextLine().trim();
-        
+
         // Check if input is all digits (i.e., a valid positive integer)
         if (userInput.matches("\\d+")) {
-            int action = Integer.parseInt(userInput);
-            if(action > 0 && action <= 6) {
-              return action;
-            }
-            else{
-              UserInterface.enterValidActionDisplay();
-            }
+          int action = Integer.parseInt(userInput);
+          if (action > 0 && action <= 7) {
+            return action;
+          } else {
+            UserInterface.enterValidActionDisplay();
+          }
         } else {
           UserInterface.enterValidActionDisplay();
         }
       }
     }
-    
-    
+
     public static int getDepositAmountInput() {
-      while(true) {
+      while (true) {
         System.out.print(
-                green + "                                              Enter Deposit amount: " + reset);
+            green + "                                              Enter Deposit amount: " + reset);
         String userInput = input.nextLine().trim();
         if (userInput.matches("\\d+")) {
           int amount = Integer.parseInt(userInput);
           if (amount > 0) {
             return amount;
+          } else {
+            UserInterface.invalidDepositAmountDisplay();
           }
-         else {
-          UserInterface.invalidDepositAmountDisplay();
-         }
-        }
-        else{
+        } else {
           UserInterface.invalidDepositAmountDisplay();
         }
       }
     }
 
     public static int getWithdrawAmountInput() {
-      
-    while (true) {
-      System.out.print(
-              green + "                                             Enter withdraw ammount: " + reset);
-      
-      String userInput = input.nextLine().trim();
-      if (userInput.matches("\\d+")) {
-        int amount = Integer.parseInt(userInput);
-        if (amount > 0) {
-          return amount;
-        }else{
-          UserInterface.invalidDepositAmountDisplay();
-        }
-      }else {
-        UserInterface.invalidDepositAmountDisplay();
-      }
-    
-    }
-    }
-    public static String getAccountNoInputForSendMoney(){
-      System.out.println(
-              cyan
-                      + (yellow
-                      + "   *"
-                      + cyan
-                      + "                               ╔════════════════════════════════════════════╗"
-                      + reset
-                      + yellow
-                      + "                                *"
-                      + reset));
-      System.out.print(
-              (yellow + "   *" + cyan + "                               ║ ✏️  Account No    : " + reset));
-      
-      String accountNo = input.nextLine();
-      System.out.println(
-              (yellow
-                      + "   *"
-                      + cyan
-                      + "                               ╚════════════════════════════════════════════╝"
-                      + reset
-                      + yellow
-                      + "                                *"
-                      + reset));
-      System.out.println(
-              yellow
-                      + "   *"
-                      + reset
-                      + yellow
-                      + "                                                                                  "
-                      + "                           *"
-                      + reset);
-      return accountNo;
-    }
-    public static int getAmountInputForSendMoney(){
+
       while (true) {
-        
-        System.out.println(
-                yellow
-                        + "   *                                                                              "
-                        + "                               *"
-                        + reset);
         System.out.print(
-                green + "                                                 Enter Send Amount: " + reset);
+            green
+                + "                                             Enter withdraw ammount: "
+                + reset);
+
         String userInput = input.nextLine().trim();
-        System.out.println(
-                yellow
-                        + "   *                                                                              "
-                        + "                               *"
-                        + reset);
         if (userInput.matches("\\d+")) {
-          int amount =  Integer.parseInt(userInput);
+          int amount = Integer.parseInt(userInput);
           if (amount > 0) {
             return amount;
-          }else{
+          } else {
+            UserInterface.invalidDepositAmountDisplay();
+          }
+        } else {
+          UserInterface.invalidDepositAmountDisplay();
+        }
+      }
+    }
+
+    public static String getAccountNoInputForSendMoney() {
+      System.out.println(
+          cyan
+              + (yellow
+                  + "   *"
+                  + cyan
+                  + "                               ╔════════════════════════════════════════════╗"
+                  + reset
+                  + yellow
+                  + "                                *"
+                  + reset));
+      System.out.print(
+          (yellow
+              + "   *"
+              + cyan
+              + "                               ║ ✏️  Account No    : "
+              + reset));
+
+      String accountNo = input.nextLine();
+      System.out.println(
+          (yellow
+              + "   *"
+              + cyan
+              + "                               ╚════════════════════════════════════════════╝"
+              + reset
+              + yellow
+              + "                                *"
+              + reset));
+      System.out.println(
+          yellow
+              + "   *"
+              + reset
+              + yellow
+              + "                                                                                  "
+              + "                           *"
+              + reset);
+      return accountNo;
+    }
+
+    public static int getAmountInputForSendMoney() {
+      while (true) {
+
+        System.out.println(
+            yellow
+                + "   *                                                                            "
+                + "                                 *"
+                + reset);
+        System.out.print(
+            green + "                                                 Enter Send Amount: " + reset);
+        String userInput = input.nextLine().trim();
+        System.out.println(
+            yellow
+                + "   *                                                                            "
+                + "                                 *"
+                + reset);
+        if (userInput.matches("\\d+")) {
+          int amount = Integer.parseInt(userInput);
+          if (amount > 0) {
+            return amount;
+          } else {
             Utility.UserInterface.invalidDepositAmountDisplay();
           }
-        }else {
+        } else {
           Utility.UserInterface.invalidDepositAmountDisplay();
         }
       }
     }
-    public static char getInputForProcessSendMoney(){
+
+    public static char getInputForProcessSendMoney() {
       char process;
       do {
-      System.out.print(green + "                                          Do You want to Process? (y/n): ");
-      
-      
-      
+        System.out.print(
+            green + "                                          Do You want to Process? (y/n): ");
+
         process = input.next().charAt(0);
         input.nextLine();
-      } while ((process != 'y' || process != 'Y') && (process != 'n' || process != 'N');
-      
+      } while ((process != 'y' && process != 'Y') && (process != 'n' && process != 'N'));
+
       System.out.print(reset);
       return process;
     }
-    public static char getInputForProcessCreateAccount(){
+
+    public static char getInputForProcessCreateAccount() {
       char process;
       do {
-        System.out.print(green + "                                          Do You want to Process? (y/n): ");
-        
-        
-        
+        System.out.print(
+            green + "                                          Do You want to Process? (y/n): ");
+
         process = input.next().charAt(0);
         input.nextLine();
       } while (process != 'y' && process != 'n');
-      
+
       System.out.print(reset);
       return process;
     }
-    
   }
 
   public static class UserInterface {
@@ -794,7 +811,7 @@ public class Utility {
           yellow
               + "   *"
               + cyan
-              + "                                  ║  [5] 🔄 Login to Another Account     ║"
+              + "                                  ║  [5] 🔄 Print Transaction History    ║"
               + reset
               + yellow
               + "                                   *"
@@ -812,7 +829,25 @@ public class Utility {
           yellow
               + "   *"
               + cyan
-              + "                                  ║  [6] "
+              + "                                  ║  [6] 🔄 Login to Another Account     ║"
+              + reset
+              + yellow
+              + "                                   *"
+              + reset);
+      System.out.println(
+          yellow
+              + "   *"
+              + cyan
+              + "                                  ║--------------------------------------║"
+              + reset
+              + yellow
+              + "                                   *"
+              + reset);
+      System.out.println(
+          yellow
+              + "   *"
+              + cyan
+              + "                                  ║  [7] "
               + red
               + "❌"
               + reset
@@ -1096,8 +1131,8 @@ public class Utility {
           yellow
               + "   *"
               + red
-              + "                    ║   Your balance is low, Please deposite some ammount, Thank you!  "
-              + " ║"
+              + "                    ║    Your balance is low, Please deposit some amount, Thank"
+              + " you!    ║"
               + yellow
               + "                    *"
               + reset);
@@ -1377,211 +1412,336 @@ public class Utility {
               + "                               *"
               + reset);
     }
-    public static void sendMoneyDisplay(){
+
+    public static void sendMoneyDisplay() {
       System.out.println(
-              yellow
-                      + "   *                                                                              "
-                      + "                               *"
-                      + reset);
-      
+          yellow
+              + "   *                                                                              "
+              + "                               *"
+              + reset);
+
       System.out.println(
-              yellow
-                      + "   *"
-                      + cyan
-                      + "                                               ╔════════════╗"
-                      + reset
-                      + yellow
-                      + "                                                *"
-                      + reset);
+          yellow
+              + "   *"
+              + cyan
+              + "                                               ╔════════════╗"
+              + reset
+              + yellow
+              + "                                                *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + cyan
-                      + "                                               ║"
-                      + bold
-                      + " Send Money "
-                      + "║"
-                      + yellow
-                      + "                                                *"
-                      + reset);
+          yellow
+              + "   *"
+              + cyan
+              + "                                               ║"
+              + bold
+              + " Send Money "
+              + "║"
+              + yellow
+              + "                                                *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + cyan
-                      + "                                               ╚════════════╝"
-                      + reset
-                      + yellow
-                      + "                                                *"
-                      + reset);
+          yellow
+              + "   *"
+              + cyan
+              + "                                               ╚════════════╝"
+              + reset
+              + yellow
+              + "                                                *"
+              + reset);
     }
-    public static void sendMoneyReceiptDisplay(String Name,String AccountNo,int amount){
+
+    public static void sendMoneyReceiptDisplay(String Name, String AccountNo, int amount) {
       LocalDateTime now = LocalDateTime.now();
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
       String formattedDateTime = now.format(formatter);
       final int totalWidth = 50;
       final int leftPadding = 26;
       final int valueWidth = totalWidth - 12; // After "Account Holder  : "
-      
+
       // Format fields with consistent padding
       String formattedName = String.format("%-" + valueWidth + "s", Name);
       String formattedAccNo = String.format("%-" + valueWidth + "s", AccountNo);
       String formattedAmount = String.format("%-" + (valueWidth - 3) + "s", "Rs." + amount);
       String formattedDate = String.format("%-" + valueWidth + "s", formattedDateTime);
-      
+
       // Divider line
       String divider = "-".repeat(totalWidth);
-      
+
       // Print receipt
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                             "
-                      + divider
-                      + reset
-                      + yellow
-                      + "                              *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                             "
+              + divider
+              + reset
+              + yellow
+              + "                              *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                                              "
-                      + yellow
-                      + bold
-                      + "Sending money"
-                      + reset
-                      + green
-                      + "                      "
-                      + yellow
-                      + "                            *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                                              "
+              + yellow
+              + bold
+              + "Sending money"
+              + reset
+              + green
+              + "                      "
+              + yellow
+              + "                            *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + reset
-                      + green
-                      + "                             "
-                      + divider
-                      + reset
-                      + yellow
-                      + "                              *"
-                      + reset);
+          yellow
+              + "   *"
+              + reset
+              + green
+              + "                             "
+              + divider
+              + reset
+              + yellow
+              + "                              *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                              Account Holder  : "
-                      + "          "
-                      + reset
-                      + formattedName
-                      + yellow
-                      + "             *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                              Account Holder  : "
+              + "          "
+              + reset
+              + formattedName
+              + yellow
+              + "             *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                              Account Number  : "
-                      + "          "
-                      + reset
-                      + formattedAccNo
-                      + yellow
-                      + "             *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                              Account Number  : "
+              + "          "
+              + reset
+              + formattedAccNo
+              + yellow
+              + "             *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                              Sending Amount  : "
-                      + "          "
-                      + reset
-                      + formattedAmount
-                      + yellow
-                      + "                *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                              Sending Amount  : "
+              + "          "
+              + reset
+              + formattedAmount
+              + yellow
+              + "                *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                              Date & Time     : "
-                      + "          "
-                      + reset
-                      + formattedDate
-                      + yellow
-                      + "             *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                              Date & Time     : "
+              + "          "
+              + reset
+              + formattedDate
+              + yellow
+              + "             *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                             "
-                      + divider
-                      + reset
-                      + yellow
-                      + "                              *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                             "
+              + divider
+              + reset
+              + yellow
+              + "                              *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *                                                                              "
-                      + "                               *"
-                      + reset);
+          yellow
+              + "   *                                                                              "
+              + "                               *"
+              + reset);
     }
-    public static void sendMoneyAccountNotFoundDisplay(){
-        System.out.println(
-                yellow
-                        + "   *"
-                        + red
-                        + "                         ╔════════════════════════════════════════════╗"
-                        + yellow
-                        + "                                      *"
-                        + reset);
-        System.out.println(
-                yellow
-                        + "   *"
-                        + red
-                        + "                         ║          ❌   Account Not Found            ║"
-                        + yellow
-                        + "                                      *"
-                        + reset);
-        System.out.println(
-                yellow
-                        + "   *"
-                        + red
-                        + "                         ╚════════════════════════════════════════════╝"
-                        + reset
-                        + yellow
-                        + "                                      *"
-                        + reset);
-      
+
+    public static void sentMoneySuccessfullyDisplay() {
+      System.out.println(
+          yellow
+              + "   *"
+              + green
+              + "                                    ╔═════════════════════════════════╗"
+              + yellow
+              + "                                      *"
+              + reset);
+      System.out.println(
+          yellow
+              + "   *"
+              + green
+              + "                                    ║   ✅ Money Sent Successfully    ║"
+              + yellow
+              + "                                      *"
+              + reset);
+      System.out.println(
+          yellow
+              + "   *"
+              + green
+              + "                                    ╚═════════════════════════════════╝"
+              + reset
+              + yellow
+              + "                                      *"
+              + reset);
     }
-    public static void sentMoneySuccessfullyDisplay(){
+
+    public static void printTransactionHistory(
+        ResultSet resultSet, String accountNo, String accountHolderName) {
+      try {
+        String folderName = "Transaction History";
+        File folder = new File(folderName);
+        if (!folder.exists()) {
+          folder.mkdir(); // Create folder if it doesn't exist
+        }
+
+        // Define the file path inside the folder
+        String filePath =
+            folderName + File.separator + "Transaction-History(" + accountNo + ").pdf";
+
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(filePath));
+        document.open();
+
+        Font titleFont = new Font(Font.HELVETICA, 25, Font.BOLD);
+        Paragraph heading = new Paragraph("Transaction History\n", titleFont);
+        heading.setAlignment(Element.ALIGN_CENTER);
+        document.add(heading);
+
+        Font infoHeadingFont = new Font(Font.HELVETICA, 16, Font.BOLD);
+        Font infoFont = new Font(Font.HELVETICA, 16);
+        Paragraph info =
+            new Paragraph(
+                "Account Holder: "
+                    + accountHolderName
+                    + "               Account No: "
+                    + accountNo
+                    + "\n\n",
+                infoHeadingFont);
+        info.setAlignment(Element.ALIGN_CENTER);
+        document.add(info);
+
+        PdfPTable table = new PdfPTable(6); // 6 columns
+        table.setWidthPercentage(110);
+        table.setWidths(new float[] {5, 5, 5, 5, 5, 5});
+
+        Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD);
+
+        String[] headers = {
+          "Transaction-Type", "Amount", "Receiver-Account",
+          "Receiver-Name", "Description", "Date & Time"
+        };
+
+        for (String title : headers) {
+          PdfPCell headerCell = new PdfPCell(new Phrase(title, headerFont));
+          headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+          headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+          table.addCell(headerCell);
+        }
+
+        try {
+          Font rowFont = new Font(Font.HELVETICA, 10);
+          while (resultSet.next()) {
+            String type = resultSet.getString("Transaction_Type");
+            double amount = resultSet.getDouble("Amount");
+            String receiverAccountNo = resultSet.getString("Receiver_Account_No");
+            String receiverName = resultSet.getString("Receiver_Name"); // might be null
+            String description = resultSet.getString("Description");
+            String time = resultSet.getString("Time");
+
+            PdfPCell cell;
+
+            cell = new PdfPCell(new Phrase(type, rowFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(String.valueOf(amount), rowFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            table.addCell(cell);
+
+            cell =
+                new PdfPCell(
+                    new Phrase(receiverAccountNo != null ? receiverAccountNo : "Null", rowFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(receiverName != null ? receiverName : "Null", rowFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(description, rowFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(time, rowFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            table.addCell(cell);
+          }
+          document.add(table);
+          document.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println(e.getMessage());
+      }
+    }
+
+    public static void printTransactionHistorySuccessfullyDisplay(String accountNo) {
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                                    ╔═════════════════════════════════╗"
-                      + yellow
-                      + "                                      *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "              "
+              + "          ╔══════════════════════════════════════════════════════════╗"
+              + yellow
+              + "                         *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                                    ║   ✅ Money Sent Successfully    ║"
-                      + yellow
-                      + "                                      *"
-                      + reset);
+          yellow
+              + "   *"
+              + green
+              + "                        ║               Transaction History Printed!"
+              + "               ║"
+              + yellow
+              + "                         *"
+              + reset);
       System.out.println(
-              yellow
-                      + "   *"
-                      + green
-                      + "                                    ╚═════════════════════════════════╝"
-                      + reset
-                      + yellow
-                      + "                                      *"
-                      + reset);
-      
+          yellow
+              + "   *"
+              + green
+              + "                        ║   TransactionHistory/Transaction_History("
+              + accountNo
+              + ")"
+              + ".pdf"
+              + "  ║"
+              + yellow
+              + "                         *"
+              + reset);
+      System.out.println(
+          yellow
+              + "   *"
+              + green
+              + "              "
+              + "          ╚══════════════════════════════════════════════════════════╝"
+              + reset
+              + yellow
+              + "                         *"
+              + reset);
     }
 
     public static void exiting() {
