@@ -1,5 +1,6 @@
 package Bank;
 
+import javax.swing.text.DefaultEditorKit;
 import java.io.File;
 import java.sql.*;
 
@@ -34,8 +35,9 @@ public class Database {
               + "Account_No VARCHAR(20) PRIMARY KEY, "
               + "AccountHolder_Name VARCHAR(50), "
               + "Account_Password VARCHAR(20), "
-              + "Account_Type INT, "
-              + "Balance INT);";
+              + "Account_Type VARCHAR(50), "
+              + "Balance INT,"
+              + "CreationDate DATE DEFAULT (DATE('now')));";
       PreparedStatement createStmt = connection.prepareStatement(createAccountsTableSQL);
       createStmt.executeUpdate();
       connection.commit();
@@ -56,7 +58,21 @@ public class Database {
       createStmt.executeUpdate();
       connection.commit();
       createStmt.close();
-
+      
+      String createAdminTable =
+              "CREATE TABLE IF NOT EXISTS admin (" +
+                      "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                      "adminName VARCHAR(100), " +
+                      "adminPassword VARCHAR(255));";
+      createStmt = connection.prepareStatement(createAdminTable);
+      createStmt.executeUpdate();
+      connection.commit();
+      createStmt.close();
+      String insertAdmin = "INSERT OR IGNORE INTO admin (id, adminName, adminPassword) VALUES (1, 'admin', 'admin');";
+      createStmt = connection.prepareStatement(insertAdmin);
+      createStmt.executeUpdate();
+      connection.commit();
+      createStmt.close();
     } catch (Exception e) {
       System.out.println("Error initializing database.");
       e.printStackTrace();
@@ -131,7 +147,7 @@ public class Database {
     }
   }
 
-  public static String getNameOfReceiverFromDatabase(String receiverAccountNo) {
+  public static String getNameOfAccountNoFromDatabase(String receiverAccountNo) {
     try {
       String getName = "SELECT AccountHolder_Name FROM Accounts WHERE Account_No = ?";
       PreparedStatement getNameStmt = connection.prepareStatement(getName);
@@ -186,7 +202,7 @@ public class Database {
   }
 
   public static void createAccountInDatabase(
-      String account_no, String name, String password, int acct_type, int balance) {
+      String account_no, String name, String password, String acct_type, int balance) {
     try {
       if (connection != null) {
         // Insert the account details into the Accounts table
@@ -198,7 +214,7 @@ public class Database {
         stmt.setString(1, account_no);
         stmt.setString(2, name);
         stmt.setString(3, password);
-        stmt.setInt(4, acct_type);
+        stmt.setString(4, acct_type);
         stmt.setInt(5, balance);
 
         stmt.executeUpdate(); // Execute the query
@@ -263,7 +279,7 @@ public class Database {
   }
 
   public static ResultSet getTransactionHistory(String accountNo) {
-    ResultSet resultSet;
+    ResultSet resultSet = null;
     try {
       String sql =
           "SELECT a.AccountHolder_Name, "
@@ -279,10 +295,114 @@ public class Database {
       stmt.setString(1, accountNo);
       resultSet = stmt.executeQuery();
       connection.commit();
-      return resultSet;
+      if (!resultSet.next()) {
+        resultSet.close();
+        return null;
+      }else{
+        return resultSet;
+      }
+      
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       return null;
+    }
+  }
+  public static boolean loginAsAdmin(String name, String password) {
+    try {
+      String sql = "SELECT * FROM admin WHERE adminName = ? AND adminPassword = ?";
+      PreparedStatement stmt = connection.prepareStatement(sql);
+      stmt.setString(1, name);
+      stmt.setString(2, password);
+      ResultSet rs = stmt.executeQuery();
+      connection.commit();
+      if (rs.next()) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println("Error in database login account");
+      e.printStackTrace();
+      return false;
+    }
+    
+  }
+  public static double getTotalBankBalance(){
+    double total_balance = 0;
+    try{
+      String sql = "SELECT SUM(Balance) AS Total_Balance FROM Accounts";
+      PreparedStatement stmt = connection.prepareStatement(sql);
+      ResultSet rs = stmt.executeQuery();
+      connection.commit();
+      if (rs.next()) {
+        total_balance =  rs.getInt("Total_Balance");
+        return total_balance;
+      }else{
+        return total_balance;
+      }
+      
+    }catch (SQLException e){
+      System.out.println(e.getMessage());
+      System.out.println("Error in database getTotalBankBalance");
+      return total_balance;
+    }
+  }
+  public static ResultSet getAllAccountsFromDatabase() {
+    try {
+      String sql = "SELECT * FROM Accounts";
+      PreparedStatement stmt = connection.prepareStatement(sql);
+      return stmt.executeQuery(); // Don't close stmt yet
+    } catch (SQLException e) {
+      System.out.println("Error fetching data: " + e.getMessage());
+      return null;
+    }
+  }
+  
+  public static Boolean updateAccountInformation(String name,String password,String accountType,String accountNo){
+    try {
+      String sql = "UPDATE Accounts SET AccountHolder_Name = ?, Account_Password = ?, Account_Type = ? WHERE Account_No = ?";
+      PreparedStatement stmt = connection.prepareStatement(sql);
+      stmt.setString(1, name);
+      stmt.setString(2, password);
+      stmt.setString(3, accountType);
+      stmt.setString(4, accountNo);
+      stmt.executeUpdate();
+      connection.commit();
+      stmt.close();
+      return true;
+    }catch (SQLException e){
+      System.out.println(e.getMessage());
+      return false;
+    }
+  }
+  public static ResultSet getInformationForDeleteAccount(String accountNo){
+    try {
+      String sql = "SELECT AccountHolder_Name,Balance FROM Accounts WHERE Account_No = ?";
+      PreparedStatement stmt = connection.prepareStatement(sql);
+      stmt.setString(1,accountNo);
+      ResultSet rs = stmt.executeQuery();
+      connection.commit();
+      if(rs.next()){
+        return rs;
+      }else{
+        return null;
+      }
+    }catch (SQLException e){
+      System.out.println(e.getMessage());
+      return null;
+    }
+    
+  }
+  public static void deleteAccountFromDatabase(String accountNo){
+    try {
+      String sql = "DELETE FROM Accounts WHERE Account_No = ?";
+      PreparedStatement stmt = connection.prepareStatement(sql);
+      stmt.setString(1, accountNo);
+      stmt.executeUpdate();
+      connection.commit();
+    }catch (SQLException e){
+      System.out.println(e.getMessage());
     }
   }
 }

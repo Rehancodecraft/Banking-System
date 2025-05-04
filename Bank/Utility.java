@@ -56,7 +56,7 @@ public class Utility {
         String userInput = input.nextLine().trim();
         if (userInput.matches("\\d+")) {
           int action = Integer.parseInt(userInput);
-          if (action >= 1 && action <= 2) {
+          if (action >= 1 && action <= 3) {
             return action;
           } else {
             Utility.UserInterface.enterValidActionDisplay();
@@ -103,8 +103,7 @@ public class Utility {
       return input.nextLine();
     }
 
-    public static int getAccountTypeInputForCreateAccount() {
-      int accountType;
+    public static String getAccountTypeInputForCreateAccount() {
       System.out.println(
           (yellow
               + "   *"
@@ -167,9 +166,13 @@ public class Utility {
 
         String userInput = input.nextLine().trim();
         if (userInput.matches("\\d+")) {
-          accountType = Integer.parseInt(userInput);
-          if (accountType >= 1 && accountType <= 2) {
-            return accountType;
+          int accountTypeInput = Integer.parseInt(userInput);
+          if (accountTypeInput >= 1 && accountTypeInput <= 2) {
+            if(accountTypeInput == 1) {
+              return "Saving Account";
+            }else if(accountTypeInput == 2) {
+              return "Current Account";
+            }
           } else {
             Utility.UserInterface.enterValidActionDisplay();
           }
@@ -300,45 +303,6 @@ public class Utility {
       }
     }
 
-    public static String getAccountNoInputForSendMoney() {
-      System.out.println(
-          cyan
-              + (yellow
-                  + "   *"
-                  + cyan
-                  + "                               ╔════════════════════════════════════════════╗"
-                  + reset
-                  + yellow
-                  + "                                *"
-                  + reset));
-      System.out.print(
-          (yellow
-              + "   *"
-              + cyan
-              + "                               ║ ✏️  Account No    : "
-              + reset));
-
-      String accountNo = input.nextLine();
-      System.out.println(
-          (yellow
-              + "   *"
-              + cyan
-              + "                               ╚════════════════════════════════════════════╝"
-              + reset
-              + yellow
-              + "                                *"
-              + reset));
-      System.out.println(
-          yellow
-              + "   *"
-              + reset
-              + yellow
-              + "                                                                                  "
-              + "                           *"
-              + reset);
-      return accountNo;
-    }
-
     public static int getAmountInputForSendMoney() {
       while (true) {
 
@@ -368,7 +332,7 @@ public class Utility {
       }
     }
 
-    public static char getInputForProcessSendMoney() {
+    public static char getInputForProcess() {
       char process;
       do {
         System.out.print(
@@ -381,19 +345,181 @@ public class Utility {
       System.out.print(reset);
       return process;
     }
-
-    public static char getInputForProcessCreateAccount() {
-      char process;
-      do {
+    public static int getAdminServicesInput() {
+      
+      while (true) {
         System.out.print(
-            green + "                                          Do You want to Process? (y/n): ");
-
-        process = input.next().charAt(0);
-        input.nextLine();
-      } while (process != 'y' && process != 'n');
-
-      System.out.print(reset);
-      return process;
+                reset
+                        + cyan
+                        + "                                                 ➡️  Enter Action: "
+                        + reset);
+        
+        String userInput = input.nextLine().trim();
+        
+        // Check if input is all digits (i.e., a valid positive integer)
+        if (userInput.matches("\\d+")) {
+          int action = Integer.parseInt(userInput);
+          if (action > 0 && action <= 7) {
+            return action;
+          } else {
+            UserInterface.enterValidActionDisplay();
+          }
+        } else {
+          UserInterface.enterValidActionDisplay();
+        }
+      }
+    }
+    public static String getAccountNoInput() {
+      System.out.println(
+              cyan
+                      + (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ╔════════════════════════════════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.print(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ║ ✏️  Account No    : "
+                      + reset));
+      
+      String accountNo = input.nextLine();
+      System.out.println(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ╚════════════════════════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.println(
+              yellow
+                      + "   *"
+                      + reset
+                      + yellow
+                      + "                                                                                  "
+                      + "                           *"
+                      + reset);
+      return accountNo;
+    }
+    public static String getFullNameInputForUpdateAccountInformation() {
+      
+      System.out.println(
+              cyan
+                      + (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ╔════════════════════════════════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      
+      System.out.print(
+              (yellow + "   *" + cyan + "                               ║ ✏️  Full Name    : "));
+      
+      //      input.nextLine();
+      return input.nextLine();
+    }
+    
+    public static String getPasswordInputForUpdateAccountInformation() {
+      
+      System.out.println(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ║--------------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.print(
+              (yellow + "   *" + cyan + "                               ║ 🔑  Password     : "));
+      return input.nextLine();
+    }
+    
+    public static String getAccountTypeInputForUpdateAccountInformation() {
+      System.out.println(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ║--------------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.println(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ║ 🏦  Select Account Type:                   ║"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.println(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ║    [1] Saving Account                      ║"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.println(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ║    [2] Current Account                     ║"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.println(
+              (yellow
+                      + "   *"
+                      + cyan
+                      + "                               ╚════════════════════════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                *"
+                      + reset));
+      System.out.println(
+              yellow
+                      + "   *"
+                      + reset
+                      + yellow
+                      + "                                                                                  "
+                      + "                           *"
+                      + reset);
+      while (true) {
+        System.out.print(
+                (yellow
+                        + "   *"
+                        + cyan
+                        + "                                          ➡️  Select Option: "));
+        
+        String userInput = input.nextLine().trim();
+        if (userInput.matches("\\d+")) {
+          int accountTypeInput = Integer.parseInt(userInput);
+          if (accountTypeInput >= 1 && accountTypeInput <= 2) {
+            if(accountTypeInput == 1) {
+              return "Saving Account";
+            }else if(accountTypeInput == 2) {
+              return "Current Account";
+            }
+          } else {
+            Utility.UserInterface.enterValidActionDisplay();
+          }
+        } else {
+          Utility.UserInterface.enterValidActionDisplay();
+        }
+      }
     }
   }
 
@@ -430,7 +556,7 @@ public class Utility {
           yellow
               + "   *"
               + cyan
-              + "                                            ║ 1. Login          ║"
+              + "                                            ║ 1. Login As User  ║"
               + reset
               + yellow
               + "                                            *"
@@ -445,10 +571,28 @@ public class Utility {
               + "                                            *"
               + reset);
       System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                            ║ 2. Login As Admin ║"
+                      + reset
+                      + yellow
+                      + "                                            *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                            ║-------------------║"
+                      + reset
+                      + yellow
+                      + "                                            *"
+                      + reset);
+      System.out.println(
           yellow
               + "   *"
               + cyan
-              + "                                            ║ 2. Create Account ║"
+              + "                                            ║ 3. Create Account ║"
               + reset
               + yellow
               + "                                            *"
@@ -477,26 +621,26 @@ public class Utility {
           yellow
               + "   *"
               + red
-              + "                                ╔════════════════════════════════════════════╗"
+              + "                               ╔════════════════════════════════════════════╗"
               + yellow
-              + "                               *"
+              + "                                *"
               + reset);
       System.out.println(
           yellow
               + "   *"
               + red
-              + "                                ║          ❌  Your Account Not Found        ║"
+              + "                               ║          ❌  Your Account Not Found        ║"
               + yellow
-              + "                               *"
+              + "                                *"
               + reset);
       System.out.println(
           yellow
               + "   *"
               + red
-              + "                                ╚════════════════════════════════════════════╝"
+              + "                               ╚════════════════════════════════════════════╝"
               + reset
               + yellow
-              + "                               *"
+              + "                                *"
               + reset);
     }
 
@@ -1592,115 +1736,6 @@ public class Utility {
               + "                                      *"
               + reset);
     }
-
-    public static void printTransactionHistory(
-        ResultSet resultSet, String accountNo, String accountHolderName) {
-      try {
-        String folderName = "Transaction History";
-        File folder = new File(folderName);
-        if (!folder.exists()) {
-          folder.mkdir(); // Create folder if it doesn't exist
-        }
-
-        // Define the file path inside the folder
-        String filePath =
-            folderName + File.separator + "Transaction-History(" + accountNo + ").pdf";
-
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(filePath));
-        document.open();
-
-        Font titleFont = new Font(Font.HELVETICA, 25, Font.BOLD);
-        Paragraph heading = new Paragraph("Transaction History\n", titleFont);
-        heading.setAlignment(Element.ALIGN_CENTER);
-        document.add(heading);
-
-        Font infoHeadingFont = new Font(Font.HELVETICA, 16, Font.BOLD);
-        Font infoFont = new Font(Font.HELVETICA, 16);
-        Paragraph info =
-            new Paragraph(
-                "Account Holder: "
-                    + accountHolderName
-                    + "               Account No: "
-                    + accountNo
-                    + "\n\n",
-                infoHeadingFont);
-        info.setAlignment(Element.ALIGN_CENTER);
-        document.add(info);
-
-        PdfPTable table = new PdfPTable(6); // 6 columns
-        table.setWidthPercentage(110);
-        table.setWidths(new float[] {5, 5, 5, 5, 5, 5});
-
-        Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD);
-
-        String[] headers = {
-          "Transaction-Type", "Amount", "Receiver-Account",
-          "Receiver-Name", "Description", "Date & Time"
-        };
-
-        for (String title : headers) {
-          PdfPCell headerCell = new PdfPCell(new Phrase(title, headerFont));
-          headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-          headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-          table.addCell(headerCell);
-        }
-
-        try {
-          Font rowFont = new Font(Font.HELVETICA, 10);
-          while (resultSet.next()) {
-            String type = resultSet.getString("Transaction_Type");
-            double amount = resultSet.getDouble("Amount");
-            String receiverAccountNo = resultSet.getString("Receiver_Account_No");
-            String receiverName = resultSet.getString("Receiver_Name"); // might be null
-            String description = resultSet.getString("Description");
-            String time = resultSet.getString("Time");
-
-            PdfPCell cell;
-
-            cell = new PdfPCell(new Phrase(type, rowFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(String.valueOf(amount), rowFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            table.addCell(cell);
-
-            cell =
-                new PdfPCell(
-                    new Phrase(receiverAccountNo != null ? receiverAccountNo : "Null", rowFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(receiverName != null ? receiverName : "Null", rowFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(description, rowFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase(time, rowFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            table.addCell(cell);
-          }
-          document.add(table);
-          document.close();
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-        System.out.println(e.getMessage());
-      }
-    }
-
     public static void printTransactionHistorySuccessfullyDisplay(String accountNo) {
       System.out.println(
           yellow
@@ -1724,11 +1759,11 @@ public class Utility {
           yellow
               + "   *"
               + green
-              + "                        ║   TransactionHistory/Transaction_History("
+              + "                        ║ TransactionHistory/Transaction_History("
               + accountNo
               + ")"
               + ".pdf"
-              + "  ║"
+              + "    ║"
               + yellow
               + "                         *"
               + reset);
@@ -1743,6 +1778,631 @@ public class Utility {
               + "                         *"
               + reset);
     }
+    public static void loginAsAdminDisplay() {
+      System.out.println(
+              yellow
+                      + "   *"
+                      + reset
+                      + yellow
+                      + "                                                                                  "
+                      + "                           *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *                                            ╔════════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                           *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *                                            ║"
+                      + bold
+                      + "   LOGIN AS ADMIN   "
+                      + reset
+                      + yellow
+                      + "║"
+                      + yellow
+                      + "                                           *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *                                            ╚════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                           *"
+                      + reset);
+    }
+    public static void adminServicesDisplay() {
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ╔══════════════════════════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║            🏦 ACCOUNT MENU           ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ╠══════════════════════════════════════╣"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║  [1] 💰 Check Total Balance          ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║  [2] 🔄 Print All Accounts           ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║  [3] 💸 Print Transaction History    ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      
+      
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║  [4] 🔄 Update Account Information   ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║  [5] 📊 Delete Account               ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      
+     
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║  [6] "
+                      + red
+                      + "❌"
+                      + reset
+                      + cyan
+                      + " Exit                         ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ╚══════════════════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+    }
+    public static void totalBankBalanceDisplay( double Balance) {
+      int boxWidth = 25;
+      int balancePadding = boxWidth - 9 - Math.min(String.valueOf(Balance).length(), boxWidth - 9);
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+      
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ╔═══════════════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                        *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ║ "
+                      + bold
+                      + yellow
+                      + "      CMD Bank Ltd."
+                      + reset
+                      + cyan
+                      + "       ║"
+                      + reset
+                      + yellow
+                      + "                                        *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ╠═══════════════════════════╣"
+                      + reset
+                      + yellow
+                      + "                                        *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ║ Balance: "
+                      + Balance
+                      + reset
+                      + cyan
+                      + " ".repeat(balancePadding)
+                      + " ║"
+                      + reset
+                      + yellow
+                      + "                                        *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ╚═══════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                        *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+    }
+    public static void printAllAccountsSuccessfullyDisplay() {
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                    "
+                      + "╔════════════════════════════════╗"
+                      + yellow
+                      + "                                       *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                    ║     All Accounts Printed!"
+                      + "      ║"
+                      + yellow
+                      + "                                       *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                    ║   Accounts/All-Accounts.pdf"
+                      + "    ║"
+                      + yellow
+                      + "                                       *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                    "
+                      + "╚════════════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                       *"
+                      + reset);
+    }
+    public static void noAccountFoundDisplay() {
+      System.out.println(
+              yellow
+                      + "   *"
+                      + red
+                      + "                                ╔════════════════════════════════════════════╗"
+                      + yellow
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + red
+                      + "                                ║       ❌ There are NO Accounts in Bank     ║"
+                      + yellow
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + red
+                      + "                                ╚════════════════════════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                               *"
+                      + reset);
+    }
+    public static void accountUpdatedSuccessfullyDisplay() {
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                ╔════════════════════════════════════════════╗"
+                      + yellow
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                ║    ✅  Your Account Updated Successfully   ║"
+                      + yellow
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                ╚════════════════════════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                               *"
+                      + reset);
+    }
+    public static void updateAccountInformationDisplay() {
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                         ╔═══════════════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                       *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                         ║"
+                      + bold
+                      + "Update Account Information"
+                      + " ║"
+                      + yellow
+                      + "                                       *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                         ╚═══════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                       *"
+                      + reset);
+    }
+    
+    public static void deleteAccountDisplay() {
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                              ╔══════════════╗"
+                      + reset
+                      + yellow
+                      + "                                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                              ║"
+                      + bold
+                      + "Delete Account"
+                      + "║"
+                      + yellow
+                      + "                                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                              ╚══════════════╝"
+                      + reset
+                      + yellow
+                      + "                                               *"
+                      + reset);
+    }
+    public static void printAllAccountsDisplay() {
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                              ╔══════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                           *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                              ║"
+                      + bold
+                      + "Print All Accounts"
+                      + "║"
+                      + yellow
+                      + "                                           *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                              ╚══════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                           *"
+                      + reset);
+    }
+    public static void printTransactionHistoryDisplay() {
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ╔═════════════════════════╗"
+                      + reset
+                      + yellow
+                      + "                                          *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ║"
+                      + bold
+                      + "Print Transaction History"
+                      + "║"
+                      + yellow
+                      + "                                          *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                        ╚═════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                                          *"
+                      + reset);
+    }
+    public static void deleteAccountReceiptDisplay(String Name, String AccountNo,double balance) {
+      LocalDateTime now = LocalDateTime.now();
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+      String formattedDateTime = now.format(formatter);
+      final int totalWidth = 50;
+      final int leftPadding = 26;
+      final int valueWidth = totalWidth - 12; // After "Account Holder  : "
+      
+      // Format fields with consistent padding
+      String formattedName = String.format("%-" + valueWidth + "s", Name);
+      String formattedAccNo = String.format("%-" + valueWidth + "s", AccountNo);
+      String formattedAmount = String.format("%-" + (valueWidth - 3) + "s", "Rs." + balance);
+      
+      // Divider line
+      String divider = "-".repeat(totalWidth);
+      
+      // Print receipt
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                             "
+                      + divider
+                      + reset
+                      + yellow
+                      + "                              *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                            "
+                      + yellow
+                      + bold
+                      + "Deleting Account"
+                      + reset
+                      + green
+                      + "                      "
+                      + yellow
+                      + "                           *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + reset
+                      + green
+                      + "                             "
+                      + divider
+                      + reset
+                      + yellow
+                      + "                              *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                              Account Holder  : "
+                      + "          "
+                      + reset
+                      + formattedName
+                      + yellow
+                      + "             *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                              Account Number  : "
+                      + "          "
+                      + reset
+                      + formattedAccNo
+                      + yellow
+                      + "             *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                              Total Balance  :  "
+                      + "          "
+                      + reset
+                      + formattedAmount
+                      + yellow
+                      + "                *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                             "
+                      + divider
+                      + reset
+                      + yellow
+                      + "                              *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *                                                                              "
+                      + "                               *"
+                      + reset);
+    }
+    public static void accountDeletedSuccessfullyDisplay() {
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                ╔════════════════════════════════════════════╗"
+                      + yellow
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                ║    ✅  Your Account Deleted Successfully   ║"
+                      + yellow
+                      + "                               *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + green
+                      + "                                ╚════════════════════════════════════════════╝"
+                      + reset
+                      + yellow
+                      + "                               *"
+                      + reset);
+    }
+    
 
     public static void exiting() {
 
