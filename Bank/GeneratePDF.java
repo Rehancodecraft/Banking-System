@@ -16,7 +16,7 @@ public class GeneratePDF {
 			String folderName = "Transaction History";
 			File folder = new File(folderName);
 			if (!folder.exists()) {
-				folder.mkdir(); // Create folder if it doesn't exist
+				folder.mkdir();
 			}
 			
 			// Define the file path inside the folder
@@ -33,7 +33,6 @@ public class GeneratePDF {
 			document.add(heading);
 			
 			Font infoHeadingFont = new Font(Font.HELVETICA, 16, Font.BOLD);
-			Font infoFont = new Font(Font.HELVETICA, 16);
 			Paragraph info =
 					new Paragraph(
 							"Account Holder: "

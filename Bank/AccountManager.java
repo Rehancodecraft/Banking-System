@@ -185,7 +185,7 @@ public class AccountManager {
     char exit = Utility.GetInputWithStyles.getInputForExiting();
     if (exit == 'y' || exit == 'Y') {
       Utility.UserInterface.exitingDisplay();
-
+      
       System.exit(0);
     }
   }

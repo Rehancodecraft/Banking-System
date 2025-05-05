@@ -2070,7 +2070,7 @@ public class Utility {
                       + "                                       *"
                       + reset);
     }
-    public static void noAccountFoundDisplay() {
+    public static void noAccountFoundErrorDisplay() {
       System.out.println(
               yellow
                       + "   *"
