@@ -1,15 +1,8 @@
 package Bank;
 
-import com.lowagie.text.*;
-import com.lowagie.text.pdf.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import javax.swing.*;
 
 public class Utility {
 
@@ -39,12 +32,12 @@ public class Utility {
         if (exit == 'y' || exit == 'Y' || exit == 'n' || exit == 'N') {
           return exit;
         } else {
-          Utility.UserInterface.enterValidActionDisplay();
+          Utility.UserInterface.enterValidActionErrorDisplay();
         }
       }
     }
 
-    public static int getInputForStartUpScreen() {
+    public static int getInputForAskForLoginOrSignup() {
       while (true) {
         System.out.print(
             yellow
@@ -59,15 +52,15 @@ public class Utility {
           if (action >= 1 && action <= 3) {
             return action;
           } else {
-            Utility.UserInterface.enterValidActionDisplay();
+            Utility.UserInterface.enterValidActionErrorDisplay();
           }
         } else {
-          Utility.UserInterface.enterValidActionDisplay();
+          Utility.UserInterface.enterValidActionErrorDisplay();
         }
       }
     }
 
-    public static String getFullNameInputForCreateAccount() {
+    public static String getFullNameInputForCreateNewAccount() {
 
       System.out.println(
           cyan
@@ -87,7 +80,7 @@ public class Utility {
       return input.nextLine();
     }
 
-    public static String getPasswordInputForCreateAccount() {
+    public static String getPasswordInputForCreateNewAccount() {
 
       System.out.println(
           (yellow
@@ -103,7 +96,7 @@ public class Utility {
       return input.nextLine();
     }
 
-    public static String getAccountTypeInputForCreateAccount() {
+    public static String getAccountTypeInputForCreateNewAccount() {
       System.out.println(
           (yellow
               + "   *"
@@ -174,15 +167,15 @@ public class Utility {
               return "Current Account";
             }
           } else {
-            Utility.UserInterface.enterValidActionDisplay();
+            Utility.UserInterface.enterValidActionErrorDisplay();
           }
         } else {
-          Utility.UserInterface.enterValidActionDisplay();
+          Utility.UserInterface.enterValidActionErrorDisplay();
         }
       }
     }
 
-    public static String getFullNameInputForLoginAccount() {
+    public static String getFullNameInputForLogIn() {
 
       System.out.println(
           cyan
@@ -205,7 +198,7 @@ public class Utility {
       return input.nextLine();
     }
 
-    public static String getPasswordInputForLoginAccount() {
+    public static String getPasswordInputForLogIn() {
 
       System.out.println(
           (yellow
@@ -238,7 +231,7 @@ public class Utility {
       return password;
     }
 
-    public static int getBankServicesInput() {
+    public static int getUserAccountServicesInput() {
 
       while (true) {
         System.out.print(
@@ -255,15 +248,15 @@ public class Utility {
           if (action > 0 && action <= 7) {
             return action;
           } else {
-            UserInterface.enterValidActionDisplay();
+            UserInterface.enterValidActionErrorDisplay();
           }
         } else {
-          UserInterface.enterValidActionDisplay();
+          UserInterface.enterValidActionErrorDisplay();
         }
       }
     }
 
-    public static int getDepositAmountInput() {
+    public static int getDepositMoneyInput() {
       while (true) {
         System.out.print(
             green + "                                              Enter Deposit amount: " + reset);
@@ -332,7 +325,7 @@ public class Utility {
       }
     }
 
-    public static char getInputForProcess() {
+    public static char getProceedConfrimationInput() {
       char process;
       do {
         System.out.print(
@@ -362,10 +355,10 @@ public class Utility {
           if (action > 0 && action <= 7) {
             return action;
           } else {
-            UserInterface.enterValidActionDisplay();
+            UserInterface.enterValidActionErrorDisplay();
           }
         } else {
-          UserInterface.enterValidActionDisplay();
+          UserInterface.enterValidActionErrorDisplay();
         }
       }
     }
@@ -514,10 +507,10 @@ public class Utility {
               return "Current Account";
             }
           } else {
-            Utility.UserInterface.enterValidActionDisplay();
+            Utility.UserInterface.enterValidActionErrorDisplay();
           }
         } else {
-          Utility.UserInterface.enterValidActionDisplay();
+          Utility.UserInterface.enterValidActionErrorDisplay();
         }
       }
     }
@@ -525,7 +518,7 @@ public class Utility {
 
   public static class UserInterface {
 
-    public static void startUpScreenDisplay() {
+    public static void askForLoginOrSignupDisplay() {
       String banner =
           """
 								 __      __         .__                                     ___________         __________                  __
@@ -616,7 +609,7 @@ public class Utility {
               + reset);
     }
 
-    public static void accountNotFoundDisplay() {
+    public static void accountNotFoundErrorDisplay() {
       System.out.println(
           yellow
               + "   *"
@@ -721,7 +714,7 @@ public class Utility {
               + reset);
     }
 
-    public static void loginAccountDisplay() {
+    public static void logInAsUserDisplay() {
       System.out.println(
           yellow
               + "   *"
@@ -785,7 +778,7 @@ public class Utility {
               + reset);
     }
 
-    public static void accountLoginFailedDisplay() {
+    public static void accountLoginFailedErrorDisplay() {
       System.out.println(
           yellow
               + "   *"
@@ -813,7 +806,7 @@ public class Utility {
               + reset);
     }
 
-    public static void enterValidActionDisplay() {
+    public static void enterValidActionErrorDisplay() {
       System.out.println(
           yellow
               + "   *"
@@ -841,7 +834,7 @@ public class Utility {
               + reset);
     }
 
-    public static void bankServicesDisplay() {
+    public static void userAccountServicesDisplay() {
       System.out.println(
           yellow
               + "   *                                                                              "
@@ -902,55 +895,57 @@ public class Utility {
               + "                                   *"
               + reset);
       System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║  [3] "
+                      + green
+                      + "🔄"
+                      + reset
+                      + cyan
+                      + "Send Money                    ║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      System.out.println(
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      
+      System.out.println(
           yellow
               + "   *"
               + cyan
-              + "                                  ║--------------------------------------║"
+              + "                                  ║  [4] 📊 Check Balance                ║"
               + reset
               + yellow
               + "                                   *"
               + reset);
       System.out.println(
-          yellow
-              + "   *"
-              + cyan
-              + "                                  ║  [3] 📊 Check Balance                ║"
-              + reset
-              + yellow
-              + "                                   *"
-              + reset);
-      System.out.println(
-          yellow
-              + "   *"
-              + cyan
-              + "                                  ║--------------------------------------║"
-              + reset
-              + yellow
-              + "                                   *"
-              + reset);
-      System.out.println(
-          yellow
-              + "   *"
-              + cyan
-              + "                                  ║  [4] "
-              + green
-              + "🔄"
-              + reset
-              + cyan
-              + "Send Money                    ║"
-              + reset
-              + yellow
-              + "                                   *"
-              + reset);
-      System.out.println(
-          yellow
-              + "   *"
-              + cyan
-              + "                                  ║--------------------------------------║"
-              + reset
-              + yellow
-              + "                                   *"
-              + reset);
+              yellow
+                      + "   *"
+                      + cyan
+                      + "                                  ║--------------------------------------║"
+                      + reset
+                      + yellow
+                      + "                                   *"
+                      + reset);
+      
       System.out.println(
           yellow
               + "   *"
@@ -1012,7 +1007,7 @@ public class Utility {
               + reset);
     }
 
-    public static void depositAmountDisplay() {
+    public static void depositMoneyDisplay() {
       System.out.println(
           yellow
               + "   *                                                                              "
@@ -1075,7 +1070,7 @@ public class Utility {
               + reset));
     }
 
-    public static void depositAmountReceiptDisplay(String Name, String AccountNo, int amount) {
+    public static void depositMoneyReceiptDisplay(String Name, String AccountNo, int amount) {
       LocalDateTime now = LocalDateTime.now();
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
       String formattedDateTime = now.format(formatter);
@@ -1223,7 +1218,7 @@ public class Utility {
               + reset);
     }
 
-    public static void withdrawAmountDisplay() {
+    public static void withdrawMoneyDisplay() {
       System.out.println(
           yellow
               + "   *                                                                              "
@@ -1261,7 +1256,7 @@ public class Utility {
               + reset);
     }
 
-    public static void invalidWithdrawAmountDisplay() {
+    public static void invalidWithdrawAmountErrorDisplay() {
       System.out.println(
           yellow
               + "   *"
@@ -1292,7 +1287,7 @@ public class Utility {
               + reset);
     }
 
-    public static void withdrawAmountReceiptDisplay(String Name, String AccountNo, int amount) {
+    public static void withdrawMoneyReceiptDisplay(String Name, String AccountNo, int amount) {
       LocalDateTime now = LocalDateTime.now();
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
       String formattedDateTime = now.format(formatter);
@@ -1437,7 +1432,7 @@ public class Utility {
               + reset);
     }
 
-    public static void accountDetailsDisplay(String Name, String AccountNo, int Balance) {
+    public static void accountBalanceDisplay(String Name, String AccountNo, double Balance) {
       int boxWidth = 25;
       int namePadding = boxWidth - 8 - Math.min(Name.length(), boxWidth - 8);
       int accNoPadding = boxWidth - 9 - Math.min(AccountNo.length(), boxWidth - 9);
@@ -2404,7 +2399,7 @@ public class Utility {
     }
     
 
-    public static void exiting() {
+    public static void exitingDisplay() {
 
       System.out.println(
           yellow

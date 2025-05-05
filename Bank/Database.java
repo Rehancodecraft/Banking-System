@@ -1,6 +1,6 @@
 package Bank;
 
-import javax.swing.text.DefaultEditorKit;
+
 import java.io.File;
 import java.sql.*;
 
@@ -79,7 +79,7 @@ public class Database {
     }
   }
 
-  public static void depositToDatabase(int amount, String accountNo, String name) {
+  public static void saveDepositToDatabase(int amount, String accountNo, String name) {
     try {
       String sql =
           "UPDATE Accounts SET Balance = Balance + ? WHERE Account_No = ? AND AccountHolder_Name ="
@@ -98,7 +98,7 @@ public class Database {
     }
   }
 
-  public static void withdrawFromDatabase(int amount, String accountNo, String name) {
+  public static void saveWithdrawInDatabase(int amount, String accountNo, String name) {
     try {
       String sql =
           "UPDATE Accounts SET Balance = Balance - ? WHERE Account_No = ? AND AccountHolder_Name ="
@@ -183,7 +183,7 @@ public class Database {
     return balance;
   }
 
-  public static ResultSet loginToAccountFromDatabase(String name, String password) {
+  public static ResultSet logInToAccountFromDatabase(String name, String password) {
 
     try {
       String sql = "SELECT * FROM Accounts WHERE AccountHolder_Name = ? AND Account_Password = ?";
@@ -201,8 +201,8 @@ public class Database {
     return null;
   }
 
-  public static void createAccountInDatabase(
-      String account_no, String name, String password, String acct_type, int balance) {
+  public static void saveNewAccountInDatabase(
+      String account_no, String name, String password, String acct_type, double balance) {
     try {
       if (connection != null) {
         // Insert the account details into the Accounts table
@@ -215,7 +215,7 @@ public class Database {
         stmt.setString(2, name);
         stmt.setString(3, password);
         stmt.setString(4, acct_type);
-        stmt.setInt(5, balance);
+        stmt.setDouble(5, balance);
 
         stmt.executeUpdate(); // Execute the query
         stmt.close();
